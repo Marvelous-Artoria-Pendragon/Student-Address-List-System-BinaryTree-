@@ -32,7 +32,7 @@ class CompleteBinaryTree
         BinTreeNode<T> *Parent(unsigned n) const;                                               //寻找完全二叉树编号为n的结点的父结点
         BinTreeNode<T> *copy(BinTreeNode<T> *orignode);                                         //复制
         template <typename Y>
-        BinTreeNode<T> *find(BinTreeNode<T> *&subTree, const Y &x) const;                           //根据cmp函数查找对应的结点，返回该结点
+        BinTreeNode<T> *find(BinTreeNode<T> *&subTree, const Y &x) const;                       //查找关键码为x的结点，返回该结点
         void destroy(BinTreeNode<T> *&subTree);                                                 //删除整棵树
         void preOrder(BinTreeNode<T> *subTree, void (*visit)(BinTreeNode<T> *current));         //前序遍历
         void inOrder(BinTreeNode<T> *subTree, void (*visit)(BinTreeNode<T> *current));          //中序遍历
@@ -51,7 +51,7 @@ class CompleteBinaryTree
             {return (current != NULL) ? current->child[1] : NULL;}
         BinTreeNode<T> *getRoot() const{return root;}                                           //返回根结点
         template <typename Y>
-        BinTreeNode<T> *find(const Y &x) {return find(root, x);}                                //根据cmp函数寻找结点，函数返回该结点地址
+        BinTreeNode<T> *find(const Y &x) {return find(root, x);}                                //寻找关键码为x的结点，函数返回该结点的数据域
         unsigned Height(BinTreeNode<T> *current) const;                                         //返回current为根的子树高度
         unsigned Height() const{return ceil(log2(size + 1));};                                  //返回树的高度
         unsigned Size() const {return size;}                                                    //返回结点数
@@ -63,7 +63,7 @@ class CompleteBinaryTree
         void CreateBinTree(istream &in, unsigned n) {CreateBinTree(in, root, n);}               //创建完全二叉树,n为创建结点数
         void insert(const T &item);                                                             //将item插入二叉树中
         template <typename Y>
-        bool remove(const Y &x){return remove(find(root, x));}                                  //移除满足cmp函数的结点
+        bool remove(const Y &x){return remove(find(root, x));}                                  //移除值为x的结点
         bool save(const char *path) const;                                                      //将二叉树以层次遍历方式存入二进制文件
         bool load(const char *path);                                                            //从二进制文件导入二叉树
 };
@@ -132,14 +132,14 @@ BinTreeNode<T> *CompleteBinaryTree<T>::copy(BinTreeNode<T> *orignode)
     return temp;
 }
 
-//私有函数：在subTree为根下，根据cmp函数指示当前结点是否为所找的结点，函数返回该结点地址(找不到返回NULL)
+//私有函数：在subTree为根下，寻找关键码为x的结点，函数返回该结点地址(找不到返回NULL)
 //cmp为比较函数(布尔类型)，函数传入当前结点的data(T)
 template<class T>
 template <typename Y>
 BinTreeNode<T> *CompleteBinaryTree<T>::find(BinTreeNode<T> *&subTree, const Y &x) const
 {
     if (subTree == NULL) return NULL;                                   //到达空结点，返回NULL
-    if (subTree->data == x) return subTree;                             //根据匹配函数找到item，返回该结点地址
+    if (subTree->data == x) return subTree;                             //找到item，返回该结点地址
     BinTreeNode<T> *temp = find(subTree->child[0], x);
     return temp != NULL ? temp : find(subTree->child[1], x);          //递归在左右子女中寻找
 }
@@ -149,8 +149,8 @@ BinTreeNode<T> *CompleteBinaryTree<T>::find(BinTreeNode<T> *&subTree, const Y &x
 template <class T>
 void CompleteBinaryTree<T>::CreateBinTree(istream &in, BinTreeNode<T> *&subTree, unsigned n)
 {
-    LinkedQueue<BinTreeNode<T> *> Q; size = n;                              //设置结点数
     destroy(root);                                                          //摧毁原二叉树
+    LinkedQueue<BinTreeNode<T> *> Q; size = n;                              //设置结点数
     subTree = new BinTreeNode<T>; if (subTree == NULL) {cerr << "存储分配错误！" << endl; exit(1);}    //新建根结点
     cout << "第1个学生信息：\n"; in >> subTree->data;
     BinTreeNode<T> *temp = subTree, *newNode = NULL; unsigned cnt = 1;      //对新建结点计数
@@ -264,12 +264,12 @@ bool CompleteBinaryTree<T>::load(const char *path)
     if (!infile || (infile.read(version, 8), strcmp(version, "0xA0B0C0") != 0)) 
         {infile.close(); return false;}                                     //打开文件失败
     destroy(root);                                                          //先清空原二叉树
-    LinkedQueue<BinTreeNode<T> *> Q; T item;
+    LinkedQueue<BinTreeNode<T> *> Q; T item;                                //临时结构体
     if (infile.read((char *) &item, DATA_SIZE))
     {
         root = new BinTreeNode<T>(item); size++;
         if (root == NULL) {cerr << "存储分配错误！" << endl; exit(1);}       //新建根结点
-    } else return false;
+    } else return false;                                                    //读取没有内容，读取失败
     BinTreeNode<T> *temp = root, *newNode = NULL;                           //当前处理的结点
     Q.EnQueue(temp);                                                        //根结点先进队
     while (infile.read((char *) &item, DATA_SIZE))

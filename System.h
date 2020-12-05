@@ -13,11 +13,10 @@ class System                                            //系统类
 {
     protected:
         CompleteBinaryTree<T> *bt;                          //二叉树根结点指针
-        CompleteBinaryTree<T> *birthday;                    //按学生年龄划分的二叉搜索树
         template <typename Y>
         friend void getData(Y &, string, string, string);   //获取指定格式的数据函数
     public:
-        System(): bt(new CompleteBinaryTree<T>), birthday(NULL){}       //构造函数,默认没有初始值
+        System(): bt(new CompleteBinaryTree<T>){}           //构造函数,默认没有初始值
         //System(const System<T> &);                        //拷贝构造函数
         ~System(){delete bt;}                               //析构函数
         
@@ -47,7 +46,7 @@ void System<T>::create()
 template <class T>
 void System<T>::insert()
 {
-    clock_t startTime, endTime; T item; cin >> item; 
+    clock_t startTime, endTime; T item; cin >> item;
     startTime = clock(); bt->insert(item);              //计时开始
     cout << "************************插入成功！**********************" << endl;
     endTime = clock();                 //计时结束
@@ -106,7 +105,7 @@ void System<T>::del()
     clock_t startTime, endTime;
     char data[3][21]; getData(data[op - 1], ".{1,20}");             //存储输入数据的字符数组
     startTime = clock();                //计时开始
-    if (bt->remove(data[op - 1])) cout << "**************************删除成功！****************************" << endl;
+    if (bt->remove(data[op - 1])) {cout << "**************************删除成功！****************************" << endl;}
     else cout << "***********************未找到该学生的记录，删除失败！***************************" << endl;
     endTime = clock();                 //计时结束
     cout << "The run time is: " << (double) (endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;

@@ -39,6 +39,38 @@ void getString(char (&item)[n], string format = ".+", string input_prompt = "", 
     strcpy(item, temp.c_str());
 }
 
+//快排，arr为数组，left为开始序号，right为结束序号，reverse=false为升序，true为降序
+template <typename T>
+void quicksort(T *arr, int left, int right, bool reverse = false)
+{
+    if (!reverse)
+    {
+        T mid = arr[(left + right) / 2],            //中间数为基准
+        low = left, high = right;
+        do
+        {
+            while (arr[low] < mid) low++;
+            while (arr[high] > mid) high--;
+            if (low <= high) 
+                {swap(arr[low], arr[high]); low++; high--;}
+        } while (low <= high);
+    }
+    else
+    {
+        T mid = arr[(left + right) / 2],            //中间数为基准
+        low = left, high = right;
+        do
+        {
+            while (arr[low] > mid) low++;
+            while (arr[high] < mid) high--;
+            if (low <= high) 
+                {swap(arr[low], arr[high]); low++; high--;}
+        } while (low <= high);
+    }
+    if (left < high) quicksort(arr, left, high, reverse);               //对左边部分排序
+    if (low < right) quicksort(arr, low, right, reverse);              //对半部分排序
+}
+
 
 
 /*获取高精度时间戳
