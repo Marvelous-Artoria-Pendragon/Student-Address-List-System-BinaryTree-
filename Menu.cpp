@@ -43,6 +43,5 @@ int main()
         if (op == 12) exit(0);
         (p.*option[op - 1])();
     }
-    system("pause"); return 0;
 }
 #endif //MENU_CPP
