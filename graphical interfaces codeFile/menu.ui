@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Menu</class>
+ <widget class="QMainWindow" name="Menu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>525</width>
+    <height>371</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>学生通讯录管理系统</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>525</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>菜单</string>
+    </property>
+    <addaction name="create"/>
+    <addaction name="insert"/>
+    <addaction name="search"/>
+    <addaction name="display"/>
+    <addaction name="remove"/>
+    <addaction name="youngest"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="readFromFile"/>
+    <addaction name="writeToFile"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="create">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>新建</string>
+   </property>
+  </action>
+  <action name="insert">
+   <property name="text">
+    <string>插入</string>
+   </property>
+  </action>
+  <action name="search">
+   <property name="text">
+    <string>查找</string>
+   </property>
+  </action>
+  <action name="youngest">
+   <property name="text">
+    <string>输出年龄最小的学生</string>
+   </property>
+  </action>
+  <action name="readFromFile">
+   <property name="text">
+    <string>读取</string>
+   </property>
+  </action>
+  <action name="writeToFile">
+   <property name="text">
+    <string>写出</string>
+   </property>
+  </action>
+  <action name="display">
+   <property name="text">
+    <string>显示所有信息</string>
+   </property>
+  </action>
+  <action name="remove">
+   <property name="text">
+    <string>删除</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,12 @@
+release/CreateWindow.o
+release/DisplayWindow.o
+release/InsertWindow.o
+release/Menu.o
+release/SearchWindow.o
+release/Student.o
+release/main.o
+release/moc_CreateWindow.o
+release/moc_DisplayWindow.o
+release/moc_InsertWindow.o
+release/moc_Menu.o
+release/moc_SearchWindow.o

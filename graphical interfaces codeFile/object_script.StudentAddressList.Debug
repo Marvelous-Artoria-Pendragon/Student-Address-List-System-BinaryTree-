@@ -1,0 +1,12 @@
+debug/CreateWindow.o
+debug/DisplayWindow.o
+debug/InsertWindow.o
+debug/Menu.o
+debug/SearchWindow.o
+debug/Student.o
+debug/main.o
+debug/moc_CreateWindow.o
+debug/moc_DisplayWindow.o
+debug/moc_InsertWindow.o
+debug/moc_Menu.o
+debug/moc_SearchWindow.o
